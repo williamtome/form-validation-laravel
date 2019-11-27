@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 function cpfs()
 {
@@ -26,9 +26,9 @@ function cpfs()
 	];
 }
 
-function cnpj()
+function cnpjs()
 {
-	return [		
+	return [
 		'02828446000134',
 		'72610132000146',
 		'01874354000128',
