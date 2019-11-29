@@ -10,7 +10,7 @@
 			<tr>
 				<th>Nome</th>
 				<th>E-mail</th>
-				<th>CPF</th>
+				<th>CPF/CNPJ</th>
 				<th>Telefone</th>
 				<th>Data de Nascimento</th>
 				<th>Sexo</th>

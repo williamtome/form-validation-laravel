@@ -25,9 +25,10 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.clients.create', ['client' => new Client()]);
+        $clientType = Client::getClientType($request->client_type);
+        return view('admin.clients.create', ['client' => new Client(), 'clientType' => $clientType]);
     }
 
     /**
@@ -40,6 +41,7 @@ class ClientsController extends Controller
     {
         $client = $request->all();
         $client['defaulter'] = $request->has('defaulter');
+        $client['client_type'] = Client::getClientType($request->client_type);
         Client::create($client);
         return redirect()->route('clients.index');
     }
@@ -63,7 +65,8 @@ class ClientsController extends Controller
      */
     public function edit(Client $client)
     {
-        return view('admin.clients.edit', compact('client'));
+        $clientType = $client->client_type;
+        return view('admin.clients.edit', compact('client', 'clientType'));
     }
 
     /**

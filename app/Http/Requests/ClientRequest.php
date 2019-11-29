@@ -24,16 +24,26 @@ class ClientRequest extends FormRequest
      */
     public function rules()
     {
-        $marital_status = implode(',', array_keys(Client::MARITAL_STATUS));
-        return [
+        $clientType = Client::getClientType($this->client_type);
+        $rules = [
             'name' => 'required|max:255',
             'document_number' => 'required',
             'email' => 'required|email',
-            'phone' => 'required',
+            'phone' => 'required'
+        ];
+
+        $marital_status = implode(',', array_keys(Client::MARITAL_STATUS));
+        $rulesIndividual = [
             'date_birth' => 'required|date',
             'marital_status' => "required|in:$marital_status",
             'sex' => 'required|in:M,F',
             'physical_disability' => 'max:255'
         ];
+
+        $rulesLegal = [
+            'company_name' => 'required|max:255'
+        ];
+        return $clientType == Client::TYPE_INDIVIDUAL ?
+            $rules+$rulesIndividual : $rules+$rulesLegal;
     }
 }
