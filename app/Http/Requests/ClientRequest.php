@@ -25,9 +25,11 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         $clientType = Client::getClientType($this->client_type);
+        $client = $this->route('client');
+        $clientId = $client instanceof Client ? $client->id : null;
         $rules = [
             'name' => 'required|max:255',
-            'document_number' => 'required',
+            'document_number' => "required|unique:clients,document_number,$clientId",
             'email' => 'required|email',
             'phone' => 'required'
         ];
